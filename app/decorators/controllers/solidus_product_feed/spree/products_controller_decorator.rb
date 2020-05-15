@@ -3,10 +3,9 @@
 module SolidusProductFeed
   module Spree
     module ProductsControllerDecorator
-      module ClassMethods
-        def self.prepended(klass)
-          klass.respond_to :rss, only: :index
-          klass.before_action :verify_requested_format!, only: :index
+        def self.prepended(base)
+          base.respond_to :rss, only: :index
+          base.before_action :verify_requested_format!, only: :index
         end
 
         def index
@@ -21,7 +20,6 @@ module SolidusProductFeed
         end
 
         ::Spree::ProductsController.prepend self
-      end
     end
   end
 end
