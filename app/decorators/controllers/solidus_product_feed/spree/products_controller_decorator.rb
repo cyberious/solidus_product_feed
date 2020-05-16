@@ -16,7 +16,7 @@ module SolidusProductFeed
         private
 
         def load_feed_products
-          @feed_products = ::Spree::Product.all.map(&SolidusProductFeed.feed_product_class.method(:new))
+          @feed_products = ::Spree::Product.all.map{ |p| SolidusProductFeed.feed_product_class.send(:new, p, SolidusProductFeed.evaluate(SolidusProductFeed.feed_product_options, self) ) }
         end
 
         ::Spree::ProductsController.prepend self

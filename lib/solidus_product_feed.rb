@@ -10,7 +10,7 @@ require 'deface'
 
 module SolidusProductFeed
   class << self
-    attr_writer :title, :link, :description, :language, :feed_product_class
+    attr_writer :title, :link, :description, :language, :feed_product_class, :feed_product_options
 
     def configure
       yield self
@@ -38,6 +38,10 @@ module SolidusProductFeed
 
     def feed_product_class
       (@feed_product_class ||= 'Spree::FeedProduct').constantize
+    end
+    
+    def feed_product_options
+      @feed_product_options ||= { }
     end
   end
 end

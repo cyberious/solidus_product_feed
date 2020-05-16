@@ -3,9 +3,10 @@
 module Spree
   class FeedProduct
     attr_reader :product
-
-    def initialize(product)
+    attr_reader :options
+    def initialize(product, opts = {})
       @product = product
+      @options = opts
     end
 
     def schema
@@ -38,8 +39,11 @@ module Spree
 
     def image_link
       return unless product.images.any?
-
-      view.current_store.url + product.images.first.attachment.url(:large)
+      if @options[:image_link_prefix] 
+        @options[:image_link_prefix] + product.images.first.attachment.url(:large)
+      else
+        product.images.first.attachment.url(:large)
+      end
     end
 
     # Must be "new", "refurbished", or "used".
