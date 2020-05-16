@@ -39,7 +39,7 @@ module Spree
     def image_link
       return unless product.images.any?
 
-      product.images.first.attachment.url(:large)
+      view.current_store.url + product.images.first.attachment.url(:large)
     end
 
     # Must be "new", "refurbished", or "used".
